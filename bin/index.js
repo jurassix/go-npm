@@ -151,14 +151,14 @@ function install(callback) {
   if (!opts) return callback(INVALID_INPUT);
   mkdirp.sync(opts.binPath);
   var ungz = zlib.createGunzip();
-  var untar = tar.Extract({
-    path: opts.binPath
+  var untar = tar.extract({
+    cwd: opts.binPath
   });
   ungz.on('error', callback);
   untar.on('error', callback); // First we will Un-GZip, then we will untar. So once untar is completed,
   // binary is downloaded into `binPath`. Verify the binary and call it good
 
-  untar.on('end', verifyAndPlaceBinary.bind(null, opts.binName, opts.binPath, callback));
+  untar.on("close", verifyAndPlaceBinary.bind(null, opts.binName, opts.binPath, callback));
   console.log("Downloading from URL: " + opts.url);
   var req = request({
     uri: opts.url
