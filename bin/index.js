@@ -151,7 +151,7 @@ function install(callback) {
   if (!opts) return callback(INVALID_INPUT);
   mkdirp.sync(opts.binPath);
   var ungz = zlib.createGunzip();
-  var untar = tar.extract({
+  var untar = tar.Extract({
     path: opts.binPath
   });
   ungz.on('error', callback);

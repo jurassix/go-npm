@@ -159,7 +159,7 @@ function install(callback) {
 
     mkdirp.sync(opts.binPath);
     let ungz = zlib.createGunzip();
-    let untar = tar.extract({path: opts.binPath});
+    let untar = tar.Extract({path: opts.binPath});
 
     ungz.on('error', callback);
     untar.on('error', callback);
